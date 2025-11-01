@@ -180,3 +180,44 @@ WHERE prog_lang_id IN (
   FROM ranked_tools
   WHERE rn > 1
 );
+
+/*
+Case Objective:
+    To analyze the most in-demand tools and programming languages 
+    in IT job vacancies, particularly in the data field, 
+    and explore their relationships with salary, level, and work location.
+*/ 
+
+-- Exploring the relationship between salary and country, as well as the number of data-related jobs
+WITH salary_calc AS (
+    SELECT
+        jobid,
+        ROUND(AVG((salary_from + salary_to)/2), 2) AS avg_salary
+    FROM itjob_header
+    WHERE salary_from IS NOT NULL
+    GROUP BY jobid
+)
+SELECT 
+    h.jobid,
+    h.level,
+    h.tech_specialisation AS data_specialisation,
+    h.country,
+    s.avg_salary,
+    h.currency,
+    h.avg_salary_usd,
+    h.type AS type_employment,
+	h.mode AS work_mode,
+    m.source_classification AS job_classification,
+    GROUP_CONCAT(DISTINCT p.prog_lang_text ORDER BY p.prog_lang_text SEPARATOR ', ') AS programming_languages,
+    GROUP_CONCAT(DISTINCT t.tool_text ORDER BY t.tool_text SEPARATOR ', ') AS tools_used,
+    h.education_level
+FROM itjob_header h
+INNER JOIN itjob_main m ON h.jobid = m.jobid
+INNER JOIN itjob_prog_lang p ON h.jobid = p.jobid
+INNER JOIN itjob_tools t ON h.jobid = t.jobid
+INNER JOIN salary_calc s ON h.jobid = s.jobid
+WHERE h.avg_salary_usd IS NOT NULL
+GROUP BY h.jobid, m.source_classification
+;
+
+#Next, save to csv for visualize in excel and tableau
