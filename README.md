@@ -34,6 +34,9 @@ All SQL scripts and the ERD schema are included in the `data_preparation_after_c
 Dataset of IT Job Vacancies and Requirements in the Asia-Pacific Region  
 👉 [Kaggle - Sergey Chekurin (2024)](https://www.kaggle.com/datasets/sergeychekurin/it-jobs-in-asia-pacific-region-may-june-2024)
 
+### 🧩 Entity Relationship Diagram (ERD)
+![ERD Preview](erd_itjob.png)
+
 ---
 
 ## 🧠 Exploratory Data Analysis (SQL)
@@ -52,6 +55,9 @@ All queries are stored in the file `EDA_analysis_IT_Job_by_Junior_level.sql`.
 ## 📊 Dashboard (Tableau)
 An interactive **Tableau dashboard** visualizes job distribution, salary trends, and specialization insights across countries.  
 Users can filter data by **country, job level, and education level**.
+
+🔗 **View Dashboard Online:**  
+[👉 Tableau Public Link](https://public.tableau.com/views/Book1_17057472858130/Dashboard1?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)
 
 ![Dashboard Preview](Dashboard.png)
 
