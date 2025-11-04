@@ -72,6 +72,28 @@ WHERE m.source_classification LIKE '%Help Desk & IT Support%'
   AND h.tech_specialisation = 'IT Support'
 GROUP BY l.prog_lang_text
 ORDER BY count_prog_lang DESC;
+		-- Persentage count of nulls in programming_language devided by sum of count_prog_lang
+WITH lang_counts AS (
+  SELECT 
+    l.prog_lang_text AS programming_language,
+    COUNT(m.jobid) AS count_prog_lang
+  FROM itjob_main m
+  LEFT JOIN itjob_header h ON m.jobid = h.jobid
+  LEFT JOIN itjob_prog_lang l ON m.jobid = l.jobid
+  WHERE m.source_classification LIKE '%Help Desk & IT Support%'
+    AND h.level = 'Junior'
+    AND h.tech_specialisation = 'IT Support'
+  GROUP BY l.prog_lang_text
+)
+SELECT
+  SUM(CASE WHEN programming_language IS NULL THEN count_prog_lang ELSE 0 END) AS null_count,
+  SUM(count_prog_lang) AS total_count,
+  ROUND(
+    100.0 * SUM(CASE WHEN programming_language IS NULL THEN count_prog_lang ELSE 0 END) 
+    / SUM(count_prog_lang), 
+    2
+  ) AS null_percentage
+FROM lang_counts;
 /*
 SQL is the most frequently required programming language.
 However, there are 33 missing rows (around 80.49% of the data), 
@@ -91,9 +113,32 @@ WHERE m.source_classification LIKE '%Help Desk & IT Support%'
   AND h.tech_specialisation = 'IT Support'
 GROUP BY t.tool_text
 ORDER BY count_tools DESC;
+		-- Persentage count of nulls in tool_name devided by sum of count_tools
+WITH tools_count AS (
+	SELECT 
+	  t.tool_text AS tool_name,
+	  COUNT(m.jobid) AS count_tools
+	FROM itjob_main m
+	LEFT JOIN itjob_header h ON m.jobid = h.jobid
+	LEFT JOIN itjob_tools t ON m.jobid = t.jobid
+	WHERE m.source_classification LIKE '%Help Desk & IT Support%'
+	  AND h.level = 'Junior'
+	  AND h.tech_specialisation = 'IT Support'
+	GROUP BY t.tool_text
+	ORDER BY count_tools DESC
+)
+SELECT
+  SUM(CASE WHEN tool_name IS NULL THEN count_tools ELSE 0 END) AS null_count,
+  SUM(count_tools) AS total_count,
+  ROUND(
+    100.0 * SUM(CASE WHEN tool_name IS NULL THEN count_tools ELSE 0 END) 
+    / SUM(count_tools), 
+    2
+  ) AS null_percentage
+FROM tools_count;
 /*
 MS Office is the most commonly required tool (6 occurrences), 
 followed by CCTV (4) and TCP/IP (3).
-There are 15 missing rows (22.73% of the total data), 
+There are 15 missing rows (14.56% of the total data), 
 but the dataset can still be considered fairly representative of real-world conditions.
 */
