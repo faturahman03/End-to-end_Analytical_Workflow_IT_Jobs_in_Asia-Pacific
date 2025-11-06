@@ -83,7 +83,7 @@ Users can filter data by **country, job level, and education level**.
 ## 🚀 Next Steps
 - Extend EDA using **Python (Matplotlib, Seaborn)** for visual statistical analysis.  
 - Develop an **Excel-based dashboard** for business-style reporting.
-![Access Here!]([Dashboard.png](https://github.com/faturahman03/Data_Analysis_Job_Specialisation_Dashboard) 
+![Access Here!](https://github.com/faturahman03/Data_Analysis_Job_Specialisation_Dashboard) 
 - Analyze **correlations** between job specialization and salary growth.  
 - Apply **text mining** to identify emerging technology job trends.  
 
