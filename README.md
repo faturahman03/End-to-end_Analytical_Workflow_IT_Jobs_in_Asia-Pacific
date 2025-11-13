@@ -8,6 +8,8 @@ This project presents a complete analytical workflow exploring IT job market tre
 It covers **data cleaning using Python (Pandas)**, **exploratory data analysis using SQL dan libraries in Python**, and **interactive visualization using Tableau**.  
 The main goal is to identify job demand, required skills, and salary patterns across countries and job levels.
 
+![Flowchart Preview](flowchart.png)
+
 ---
 
 ## 🎯 Objectives
